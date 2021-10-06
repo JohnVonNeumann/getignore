@@ -13,7 +13,8 @@ parser.add_argument(
 
 def get_remote_gitignore(language):
     # casefold() and capitalize() as all file names are capitalized
-    url = f'{URL_BASE}{language.casefold().capitalize()}{GITIGNORE_FILE}'
+    lang = language.casefold().capitalize()
+    url = f'{URL_BASE}{lang}{GITIGNORE_FILE}'
     req = Request(url)
 
     try:
