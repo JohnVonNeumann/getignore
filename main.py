@@ -20,9 +20,8 @@ def get_remote_gitignore(language):
     try:
         response = urlopen(req)
     except URLError as e:
-        if hasattr(e, 'reason'):
-            print('We failed to reach a server.')
-            print('Reason: ', e.reason)
+        if hasattr(e, 'reason') and e.reason == 'Not Found':
+            print(f'{e.code}: Couldn\'t find the gitignore file {lang} in the repository.')
         elif hasattr(e, 'code'):
             print('The server couldn\'t fulfill the request.')
             print('Error code: ', e.code)
