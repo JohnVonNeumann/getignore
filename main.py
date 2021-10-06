@@ -32,6 +32,5 @@ def get_remote_gitignore(language):
 
 if __name__ == '__main__':
     results = parser.parse_args()
-    print(results.language)
-    # print(parser.parse_args())
-    # get_remote_gitignore("python")
+    if results.language is not None:
+        get_remote_gitignore(results.language)
