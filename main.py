@@ -9,7 +9,8 @@ GITIGNORE_FILE = '.gitignore'
 
 
 def get_remote_gitignore(language):
-    url = f'{URL_BASE}{language}{GITIGNORE_FILE}'
+    # casefold() and capitalize() as all file names are capitalized
+    url = f'{URL_BASE}{language.casefold().capitalize()}{GITIGNORE_FILE}'
     req = Request(url)
 
     try:
