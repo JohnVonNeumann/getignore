@@ -1,3 +1,4 @@
+from argparse import ArgumentParser
 from urllib.request import Request, urlopen
 from urllib.error import URLError
 from pprint import pprint
@@ -5,6 +6,10 @@ from pprint import pprint
 URL_BASE = 'https://raw.githubusercontent.com/github/gitignore/master/'
 GITIGNORE_FILE = '.gitignore'
 
+parser = ArgumentParser()
+parser.add_argument(
+    '-l', action='store', dest='language', help='The language of the gitignore rules to include.'
+)
 
 def get_remote_gitignore(language):
     # casefold() and capitalize() as all file names are capitalized
@@ -26,4 +31,7 @@ def get_remote_gitignore(language):
 
 
 if __name__ == '__main__':
-    get_remote_gitignore("python")
+    results = parser.parse_args()
+    print(results.language)
+    # print(parser.parse_args())
+    # get_remote_gitignore("python")
