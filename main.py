@@ -21,7 +21,8 @@ def get_remote_gitignore(language):
             print('The server couldn\'t fulfill the request.')
             print('Error code: ', e.code)
     else:
-        pprint(response.read())
+        with open(GITIGNORE_FILE, 'w+') as file:
+            file.write(response.read().decode('utf-8'))
 
 
 if __name__ == '__main__':
