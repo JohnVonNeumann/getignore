@@ -6,7 +6,7 @@ from pprint import pprint
 URL_BASE = 'https://raw.githubusercontent.com/github/gitignore/master/'
 GITIGNORE_FILE = '.gitignore'
 
-parser = ArgumentParser()
+parser = ArgumentParser(add_help=True)
 parser.add_argument(
     '-l', action='store', dest='language', help='The language of the gitignore rules to include.'
 )
