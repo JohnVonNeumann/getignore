@@ -33,6 +33,11 @@ JohnVonNeumann
 
 TODO
 
+## Todo
+* Add Arg Parsing
+* Add ability to merge/append to existing gitignore without duplicate rules
+* Add ability to append language tooling ecosystem rules (JetBrains etc)
+
 ## Acknowledgments
 
 * The neighbour's dogs that live upstairs.
