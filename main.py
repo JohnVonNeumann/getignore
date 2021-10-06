@@ -4,8 +4,6 @@ from pprint import pprint
 
 URL_BASE = 'https://raw.githubusercontent.com/github/gitignore/master/'
 GITIGNORE_FILE = '.gitignore'
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 
 def get_remote_gitignore(language):
@@ -26,8 +24,5 @@ def get_remote_gitignore(language):
         pprint(response.read())
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     get_remote_gitignore("python")
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
