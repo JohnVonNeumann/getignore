@@ -13,16 +13,27 @@ so users can quickly add boilerplate gitignore template to their repositories.
 
 * Python 3.8
 * Pytest
+* Make
 
-### Installing
+## Installing
 
-## Development
+----
+
+### Development
+
+----
+#### Installation
 1. Create virtualenv
 2. Activate virtualenv
-3. `Pip install -r requirements_dev.txt`
+3. `pip install -r requirements_dev.txt`
 
+----
+#### Usage
+Makefile Rules:
+1. `make test` - runs python test suite
 
-## Production
+----
+### Production
 * TODO
 
 ### Executing program
