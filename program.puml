@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+Gitignore *-- RuleSet
+
+class RuleSet {
+    String _name
+}
+
+class Gitignore {
+    - String _name
+    - List[RuleSet] _rulesets
+    - String _out_file
+}
+
+
+@enduml
