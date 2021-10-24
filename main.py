@@ -11,7 +11,7 @@ parser.add_argument(
 )
 
 
-def get_remote_gitignore(language):
+def get_remote_gitignore(*, language) -> None:
     # casefold() and capitalize() as all file names are capitalized
     if not language:
         raise ValueError('--language cannot be empty')
