@@ -12,9 +12,17 @@ so users can quickly add boilerplate gitignore template to their repositories.
 ### Dependencies
 
 * Python 3.8
+* Pytest
 
 ### Installing
 
+## Development
+1. Create virtualenv
+2. Activate virtualenv
+3. `Pip install -r requirements_dev.txt`
+
+
+## Production
 * TODO
 
 ### Executing program
