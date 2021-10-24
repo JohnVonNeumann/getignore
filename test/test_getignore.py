@@ -24,6 +24,11 @@ class GetignoreTest(unittest.TestCase):
         get_remote_gitignore(out_file=OUT_FILE, language=language)
         self.assertTrue(os.path.exists(self._path))
 
+    def test_get_remote_gitignore_no_file_created_on_unfound_file(self):
+        language = 'GuaranteedTestFailure1337'
+        get_remote_gitignore(out_file=OUT_FILE, language=language)
+        self.assertFalse(os.path.exists(self._path))
+
     def test_get_remote_gitignore_error_on_none_input(self):
         language = ''
         with self.assertRaises(ValueError):
