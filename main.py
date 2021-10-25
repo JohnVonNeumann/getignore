@@ -1,15 +1,41 @@
+import json
+import sys
 from argparse import ArgumentParser
+from os.path import splitext
+from typing import Set
 from urllib.request import Request, urlopen
 from urllib.error import URLError
 
 URL_BASE = 'https://raw.githubusercontent.com/github/gitignore/master/'
+GITHUB_API_URL = 'https://api.github.com/repos/github/gitignore/contents/'
 OUT_FILE = '.gitignore'
 
 parser = ArgumentParser(add_help=True)
 parser.add_argument(
     '-l', action='store', dest='language', help='The language of the gitignore rules to include.'
 )
+parser.add_argument(
+    '--list', action='store_true', dest='list', help='List available gitignore files in the repository'
+)
 
+
+def main():
+    results = parser.parse_args()
+    if results.list is True:
+        for lang in get_available_gitignores():
+            print(lang)
+        sys.exit()
+    if results.language is not None:
+        get_remote_gitignore(language=results.language)
+
+
+def parse_langs_from_json(*, resp: bytes) -> Set[str]:
+    languages: Set[str] = set()
+    for row in json.loads(resp):
+        lang, extension = splitext(row['name'])
+        if extension == '.gitignore':
+            languages.add(lang)
+    return languages
 
 
 def get_available_gitignores() -> Set[str]:
@@ -48,6 +74,4 @@ def get_remote_gitignore(*, out_file: str = OUT_FILE, language: str) -> None:
 
 
 if __name__ == '__main__':
-    results = parser.parse_args()
-    if results.language is not None:
-        get_remote_gitignore(results.language)
+    main()
