@@ -11,8 +11,23 @@ parser.add_argument(
 )
 
 
-def get_remote_gitignore(*, out_file=OUT_FILE, language) -> None:
-    # casefold() and capitalize() as all file names are capitalized
+
+def get_available_gitignores() -> Set[str]:
+    resp = urlopen(GITHUB_API_URL)
+    return parse_langs_from_json(resp=resp.read())
+
+
+def get_remote_gitignore(*, out_file: str = OUT_FILE, language: str) -> None:
+    """
+    Queries the remote github/gitignore repository for gitignore rules and outputs
+    them into a file of the users choice
+
+    :param out_file: Name of output file to add Git ignore rules to
+    :param language: Name of the language whose rules are to be saved
+
+    :return None
+    """
+    # casefold() and capitalize() as all file names are capitalized in remote repository
     if not language:
         raise ValueError('--language cannot be empty')
     lang = language.casefold().capitalize()
