@@ -39,8 +39,8 @@ def parse_langs_from_json(*, resp: bytes) -> Set[str]:
 
 
 def get_available_gitignores() -> Set[str]:
-    resp = urlopen(GITHUB_API_URL)
-    return parse_langs_from_json(resp=resp.read())
+    resp = github_http_request(url=GITHUB_API_URL)
+    return parse_langs_from_json(resp=resp)
 
 
 def get_remote_gitignore(*, out_file: str = OUT_FILE, language: str) -> None:
@@ -58,19 +58,27 @@ def get_remote_gitignore(*, out_file: str = OUT_FILE, language: str) -> None:
         raise ValueError('--language cannot be empty')
     lang = language.casefold().capitalize()
     url = f'{URL_BASE}{lang}.gitignore'
-    req = Request(url)
 
+    response = github_http_request(url=url, lang=lang)
+
+    if response:
+        with open(out_file, 'w+') as file:
+            file.write(response.decode('utf-8'))
+
+
+def github_http_request(*, url: str, lang: str = None) -> bytes:
     try:
+        req = Request(url)
         response = urlopen(req)
+        return response.read()
     except HTTPError as e:
         if hasattr(e, 'reason') and e.reason == 'Not Found':
             print(f'{e.code}: Couldn\'t find the gitignore file {lang} in the repository.')
         elif hasattr(e, 'code'):
             print('The server couldn\'t fulfill the request.')
             print('Error code: ', e.code)
-    else:
-        with open(out_file, 'w+') as file:
-            file.write(response.read().decode('utf-8'))
+    except Exception as e:
+        print(e)
 
 
 if __name__ == '__main__':
