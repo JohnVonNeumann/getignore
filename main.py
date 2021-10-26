@@ -24,7 +24,7 @@ def main():
     if results.list is True:
         for lang in get_available_gitignores():
             print(lang)
-        sys.exit()
+        sys.exit(0)
     if results.language is not None:
         get_remote_gitignore(language=results.language)
 
