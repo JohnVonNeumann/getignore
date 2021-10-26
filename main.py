@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 from os.path import splitext
 from typing import Set
 from urllib.request import Request, urlopen
-from urllib.error import URLError
+from urllib.error import HTTPError
 
 URL_BASE = 'https://raw.githubusercontent.com/github/gitignore/master/'
 GITHUB_API_URL = 'https://api.github.com/repos/github/gitignore/contents/'
@@ -62,7 +62,7 @@ def get_remote_gitignore(*, out_file: str = OUT_FILE, language: str) -> None:
 
     try:
         response = urlopen(req)
-    except URLError as e:
+    except HTTPError as e:
         if hasattr(e, 'reason') and e.reason == 'Not Found':
             print(f'{e.code}: Couldn\'t find the gitignore file {lang} in the repository.')
         elif hasattr(e, 'code'):
